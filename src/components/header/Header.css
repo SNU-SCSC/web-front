@@ -1,0 +1,72 @@
+#header {
+    position: fixed;
+    width: 100%;
+    height: 60px;
+}
+
+#header-container {
+    display: flex;
+    justify-content: row;
+    gap: 50px;
+    
+    width: auto;
+    height: 40px;
+
+    padding: 10px 20px;
+}
+
+#header-items {
+    display: flex;
+    justify-content: row;
+    align-items: center;
+    gap: 50px;
+}
+
+.header-item {
+    display: flex;
+    justify-content: row;
+
+    & > span {
+        font-size: 20px;
+    }
+
+    & > span.accent {
+        color: var(--text);
+        transition: color 0.1s;
+    }
+
+    & > span.normal {
+        color: var(--text-sub);
+        transition: color 0.1s;
+    }
+    
+    &:hover {
+        & > span.accent {
+            color: var(--text-accent);
+        }
+    }
+}
+
+#header-user {
+    display: flex;
+    justify-content: row;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto;
+
+    & > svg {
+        color: var(--text);
+        width: 28px;
+        height: 28px;
+    }
+
+    & > .name {
+        color: var(--text);
+        font-size: 20px;
+    }
+    
+    & > .type {
+        color: var(--text-alternate);
+        font-size: 18px;
+    }
+}
