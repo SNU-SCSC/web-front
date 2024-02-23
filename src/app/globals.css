@@ -1,11 +1,14 @@
 :root {
-    --bg: #1F1F1F;
-    --text: #EEEEEE;
-    --text-sub: #808080;
-    --text-accent: #8AAAE5;
-    --text-alternate: #C7A463;
+    --bg: 31, 31, 31;
+    --button-bg: 42, 42, 42;
+    --text: 238, 238, 238;
+    --text-sub: 128, 128, 128;
+    --text-accent: 138, 170, 229;
+    --text-alternate: 199, 164, 99;
+    --text-positive: 126, 187, 139;
+    --text-negative: 222, 146, 151;
 
-    background: var(--bg);
+    background: rgb(var(--bg));
 }
 
 * {
@@ -17,4 +20,15 @@ button {
     font-family: inherit;
     background: none;
     border: none;
+}
+
+#body {
+    position: relative;
+    padding-top: 60px;
+
+    z-index: 1;
+}
+
+#header {
+    z-index: 2;
 }

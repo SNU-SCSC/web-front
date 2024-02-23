@@ -2,6 +2,9 @@
     position: fixed;
     width: 100%;
     height: 60px;
+
+    background: rgba(var(--bg), 0.5);
+    backdrop-filter: blur(10px);
 }
 
 #header-container {
@@ -31,18 +34,18 @@
     }
 
     & > span.accent {
-        color: var(--text);
+        color: rgb(var(--text));
         transition: color 0.1s;
     }
 
     & > span.normal {
-        color: var(--text-sub);
+        color: rgb(var(--text-sub));
         transition: color 0.1s;
     }
     
     &:hover {
         & > span.accent {
-            color: var(--text-accent);
+            color: rgb(var(--text-accent));
         }
     }
 }
@@ -55,18 +58,18 @@
     margin-left: auto;
 
     & > svg {
-        color: var(--text);
+        color: rgb(var(--text));
         width: 28px;
         height: 28px;
     }
 
     & > .name {
-        color: var(--text);
+        color: rgb(var(--text));
         font-size: 20px;
     }
     
     & > .type {
-        color: var(--text-alternate);
+        color: rgb(var(--text-alternate));
         font-size: 18px;
     }
 }
