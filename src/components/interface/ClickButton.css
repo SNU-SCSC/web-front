@@ -1,0 +1,75 @@
+.click-button {
+    background: rgb(var(--button-bg));
+    color: rgb(var(--text-normal));
+    width: 120px;
+    height: 30px;
+    font-size: 18px;
+
+    border-radius: 5px;
+
+    transition: background 0.1s;
+
+    &:hover {
+        background: rgb(var(--button-bg-hover));
+        border: 2px solid rgb(var(--text-normal));
+        
+        &:active {
+            transition: none;
+            color: rgb(var(--text-normal-sub));
+            border-color: rgb(var(--text-normal-sub));
+            background: rgb(var(--button-bg-sub));
+        }
+    }
+
+    &.accent {
+        color: rgb(var(--text-accent));
+
+        &:hover {
+            border-color: rgb(var(--text-accent));
+            
+            &:active {
+                color: rgb(var(--text-accent-sub));
+                border-color: rgb(var(--text-accent-sub));
+            }
+        }
+    }
+
+    &.positive {
+        color: rgb(var(--text-positive));
+
+        &:hover {
+            border-color: rgb(var(--text-positive));
+
+            &:active {
+                color: rgb(var(--text-positive-sub));
+                border-color: rgb(var(--text-positive-sub));
+            }
+        }
+    }
+
+    &.negative {
+        color: rgb(var(--text-negative));
+
+        &:hover {
+            border-color: rgb(var(--text-negative));
+
+            &:active {
+                color: rgb(var(--text-negative-sub));
+                border-color: rgb(var(--text-negative-sub));
+            }
+        }
+    }
+
+    &.alternate {
+        color: rgb(var(--text-alternate));
+
+        &:hover {
+            border-color: rgb(var(--text-alternate));
+            
+            &:active {
+                color: rgb(var(--text-alternate-sub));
+                border-color: rgb(var(--text-alternate-sub));
+            }
+        }
+    }
+}

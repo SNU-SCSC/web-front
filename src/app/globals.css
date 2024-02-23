@@ -1,12 +1,20 @@
 :root {
     --bg: 31, 31, 31;
     --button-bg: 42, 42, 42;
+    --button-bg-hover: 52, 52, 52;
+    --button-bg-sub: 31, 31, 31;
     --text: 238, 238, 238;
     --text-sub: 128, 128, 128;
+    --text-normal: 169, 169, 169;
     --text-accent: 138, 170, 229;
     --text-alternate: 199, 164, 99;
     --text-positive: 126, 187, 139;
     --text-negative: 222, 146, 151;
+    --text-normal-sub: 128, 128, 128;
+    --text-accent-sub: 98, 128, 184;
+    --text-alternate-sub: 169, 114, 68;
+    --text-positive-sub: 85, 144, 98;
+    --text-negative-sub: 177, 104, 110;
 
     background: rgb(var(--bg));
 }
