@@ -5,6 +5,7 @@ export type ClickButtonTypes = "accent" | "positive" | "negative" | "alternate";
 
 export default function ClickButton({
     text = "Button",
+    className,
     accent,
     positive,
     negative,
@@ -20,6 +21,7 @@ export default function ClickButton({
             positive && "positive",
             negative && "negative",
             alternate && "alternate",
+            className,
         ])} {...props}>
             {text}
         </button>
