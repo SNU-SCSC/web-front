@@ -1,0 +1,65 @@
+#sign-up-container {
+    position: relative;
+    margin-top: 100px;
+    padding: 0px 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    & > .multi-tab {
+        width: auto;
+
+        display: flex;
+        justify-content: row;
+        align-items: center;
+
+        & > .multi-tab-item {
+            flex: 1;
+        }
+    }
+}
+
+#sign-up-content {
+    width: auto;
+    background: rgb(var(--bg-high));
+    padding: 20px;
+    border-radius: 0px 0px 5px 5px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#external-user-sign-up-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    & > .unique-id-field, & > .password-field, & > .email-field, & > .email-code-field {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+
+        & > span {
+            width: 120px;
+            
+            @media (max-width: 440px) {
+                width: max-content;
+            }
+        }
+    
+        & > .textbox {
+            width: 90px;
+            flex: auto;
+        }
+    }
+    
+    & > .email-code-field {
+        flex-wrap: wrap;
+
+        & > .click-button {
+            flex: auto;
+        }
+    }
+}

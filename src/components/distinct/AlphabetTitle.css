@@ -1,0 +1,16 @@
+.alphabet-title {
+    font-size: 36px;
+    margin-bottom: 15px;
+
+    user-select: none;
+
+    @media (max-width: 600px) {
+        text-align: center;
+    }
+
+    & > .sub {
+        font-size: 30px;
+        color: rgb(var(--text-sub));
+        margin-right: 20px;
+    }
+}
