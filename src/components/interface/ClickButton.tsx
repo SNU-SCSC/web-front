@@ -4,16 +4,14 @@ import "./ClickButton.css";
 export type ClickButtonTypes = "accent" | "positive" | "negative" | "alternate";
 
 export default function ClickButton({
-    text = "Button",
+    children = "Button",
     className,
     accent,
     positive,
     negative,
     alternate,
     ...props
-}: {
-    text?: string;
-} & React.ButtonHTMLAttributes<HTMLButtonElement> & Partial<Record<ClickButtonTypes, boolean>>) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & Partial<Record<ClickButtonTypes, boolean>>) {
     return (
         <button className={MultiClassName([
             "click-button",
@@ -23,7 +21,7 @@ export default function ClickButton({
             alternate && "alternate",
             className,
         ])} {...props}>
-            {text}
+            {children}
         </button>
     );
 }
