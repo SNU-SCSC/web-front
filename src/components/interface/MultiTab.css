@@ -1,0 +1,50 @@
+.multi-tab {
+    display: flex;
+    justify-content: row;
+    align-items: center;
+    gap: 0;
+}
+
+.multi-tab-item {
+    padding: 10px;
+    cursor: pointer;
+
+    font-size: 18px;
+    background: rgb(var(--multitab-bg));
+
+    transition: 0.1s;
+
+    &:not(.active) {
+        color: rgb(var(--text-normal));
+    }
+
+    &.active {
+        color: rgb(var(--accent));
+    }
+
+    &:hover {
+        background: rgb(var(--multitab-bg-hover));
+        box-shadow: 0 0 0 2px rgb(var(--accent)) inset;
+    
+        &:active {
+            background: rgb(var(--multitab-bg-sub));
+            box-shadow: 0 0 0 2px rgb(var(--accent-sub)) inset;
+
+            &:not(.active) {
+                color: rgb(var(--text-normal-sub));
+            }
+
+            &.active {
+                color: rgb(var(--accent-sub));
+            }
+        }
+    }
+
+    &.first {
+        border-top-left-radius: 5px;
+    }
+
+    &.last {
+        border-top-right-radius: 5px;
+    }
+}
