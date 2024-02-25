@@ -38,6 +38,7 @@ function ExternalUserSignUp() {
                 <span>비밀번호</span>
                 <Textbox type="password" placeholder="Password"/>
             </div>
+            <ClickButton accent className="submit-button">가입하기</ClickButton>
         </div>
     );
 }
