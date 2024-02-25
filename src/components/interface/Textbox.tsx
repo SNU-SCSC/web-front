@@ -1,16 +1,18 @@
+import { forwardRef } from "react";
 import "./Textbox.css";
 import MultiClassName from "@/util/MultiClassName";
 
 export type TextButtonTypes = "positive" | "negative" | "alternate";
+export type TextboxPropType = React.InputHTMLAttributes<HTMLInputElement> & Partial<Record<TextButtonTypes, boolean>>;
 
-export default function Textbox({
+const Textbox = forwardRef<HTMLInputElement, TextboxPropType>(({
     className,
     positive,
     negative,
     alternate,
     type = "text",
     ...props
-}: React.InputHTMLAttributes<HTMLInputElement> & Partial<Record<TextButtonTypes, boolean>>) {
+}: TextboxPropType, ref) => {
     return (
         <input type={type} className={MultiClassName([
             "textbox",
@@ -18,6 +20,8 @@ export default function Textbox({
             negative && "negative",
             alternate && "alternate",
             className,
-        ])} {...props}/>
+        ])} ref={ref} {...props}/>
     )
-}
+});
+
+export default Textbox;
