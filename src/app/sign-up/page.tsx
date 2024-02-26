@@ -2,10 +2,11 @@
 import "./page.css";
 import WidthRestrictor from "@/components/util/WidthRestrictor";
 import MultiTab, { MultiTabItem } from "@/components/interface/MultiTab";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import AlphabetTitle from "@/components/distinct/AlphabetTitle";
 import Textbox from "@/components/interface/Textbox";
 import ClickButton from "@/components/interface/ClickButton";
+import { useRouter } from "next/navigation";
 
  // Multitab navigation
 
@@ -19,26 +20,90 @@ function ClubUserSignUp() {
 }
 
 function ExternalUserSignUp() {
+    const uniqueIdRef = useRef<HTMLInputElement>(null);
+    const emailRef = useRef<HTMLInputElement>(null);
+    const emailCodeRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
+
+    const router = useRouter();
+
+    const sendEmailVerificationRequest = async () => {
+        if (!emailRef.current) return;
+
+        fetch(process.env["NEXT_PUBLIC_API_URL"] + "auth/email/request-verification", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "application/json",
+            },
+            body: JSON.stringify({
+                email: emailRef.current.value,
+            }),
+        }).then(async (response) => {
+            // TODO - get status codes from the server then handle them
+        });
+    };
+
+    const sendSignUpRequest = async () => {
+        if (!uniqueIdRef.current || !emailRef.current || !emailCodeRef.current || !passwordRef.current) return;
+
+        fetch(process.env["NEXT_PUBLIC_API_URL"] + "auth/sign-up", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "application/json",
+            },
+            body: JSON.stringify({
+                unique_id: uniqueIdRef.current.value,
+                email: emailRef.current.value,
+                email_verification_key: emailCodeRef.current.value,
+                password: passwordRef.current.value,
+            }),
+        }).then(async (response) => {
+            if (response.status === 200) {
+                if (!uniqueIdRef.current || !passwordRef.current) return;
+
+                fetch(process.env["NEXT_PUBLIC_API_URL"] + "auth/sign-in", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "accept": "application/json",
+                    },
+                    body: JSON.stringify({
+                        unique_id: uniqueIdRef.current.value,
+                        password: passwordRef.current.value,
+                    }),
+                }).then(async (response) => {
+                    if (response.status === 200) {
+                        const token = await response.text();
+                        localStorage.setItem("auth-token", token);
+                        router.push("/");
+                    }
+                });
+            }
+        });
+    };
+
     return (
         <div id="external-user-sign-up-container">
             <div className="unique-id-field">
                 <span>유저 아이디</span>
-                <Textbox placeholder="Unique ID"/>
+                <Textbox ref={uniqueIdRef} placeholder="Unique ID"/>
             </div>
             <div className="email-field">
                 <span>이메일</span>
-                <Textbox placeholder="Email"/>
+                <Textbox ref={emailRef} placeholder="Email"/>
             </div>
             <div className="email-code-field">
                 <span>이메일 인증번호</span>
-                <Textbox placeholder="Code"/>
-                <ClickButton alternate>인증번호 받기</ClickButton>
+                <Textbox ref={emailCodeRef} placeholder="Code"/>
+                <ClickButton alternate onClick={sendEmailVerificationRequest}>인증번호 받기</ClickButton>
             </div>
             <div className="password-field">
                 <span>비밀번호</span>
-                <Textbox type="password" placeholder="Password"/>
+                <Textbox ref={passwordRef} type="password" placeholder="Password"/>
             </div>
-            <ClickButton accent className="submit-button">가입하기</ClickButton>
+            <ClickButton accent className="submit-button" onClick={sendSignUpRequest}>가입하기</ClickButton>
         </div>
     );
 }
