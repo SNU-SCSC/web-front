@@ -54,6 +54,8 @@ function ExternalUserSignUp() {
                     password: passwordRef.current.value,
                 }).then(async (response) => {
                     if (response.status === 200) {
+                        const token = await response.text();
+                        localStorage.setItem("auth-token", token);
                         router.push("/");
                     }
                 });

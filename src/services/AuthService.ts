@@ -17,10 +17,6 @@ export const sendSignInRequest = async ({
             unique_id: unique_id,
             password: password,
         }),
-    }).then(async (response) => {
-        const token = await response.text();
-        localStorage.setItem("auth-token", token);
-        return response
     });
 };
 
