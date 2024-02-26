@@ -51,24 +51,34 @@
 }
 
 #header-user {
+    margin-left: auto;
     display: flex;
     justify-content: row;
     align-items: center;
     gap: 5px;
-    margin-left: auto;
+    
+    
+    text-decoration: none;
 
     & > svg {
         color: rgb(var(--text));
         width: 28px;
         height: 28px;
     }
+}
+
+#header-user-info {
+    display: flex;
+    justify-content: row;
+    align-items: center;
+    gap: 5px;
 
     & > .name {
         color: rgb(var(--text));
         font-size: 20px;
     }
     
-    & > .type {
+    & > .user-type {
         color: rgb(var(--text-alternate));
         font-size: 18px;
     }

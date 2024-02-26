@@ -4,6 +4,8 @@ import AlphabetTitle from "@/components/distinct/AlphabetTitle";
 import ClickButton from "@/components/interface/ClickButton";
 import Textbox from "@/components/interface/Textbox";
 import WidthRestrictor from "@/components/util/WidthRestrictor";
+import { sendSignInRequest } from "@/services/AuthService";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
@@ -13,23 +15,14 @@ export default function LoginPage() {
 
     const router = useRouter();
     
-    const sendLoginRequest = async () => {
+    const sendLoginRequestHandler = async () => {
         if (!uniqueIdRef.current || !passwordRef.current) return;
 
-        fetch(process.env["NEXT_PUBLIC_API_URL"] + "auth/sign-in", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "accept": "application/json",
-            },
-            body: JSON.stringify({
-                unique_id: uniqueIdRef.current.value,
-                password: passwordRef.current.value,
-            }),
+        sendSignInRequest({
+            unique_id: uniqueIdRef.current.value,
+            password: passwordRef.current.value,
         }).then(async (response) => {
             if (response.status === 200) {
-                const token = await response.text();
-                localStorage.setItem("auth-token", token);
                 router.push("/");
             }
         });
@@ -47,7 +40,10 @@ export default function LoginPage() {
                     <span>비밀번호</span>
                     <Textbox type="password" placeholder="Password" ref={passwordRef}/>
                 </div>
-                <ClickButton accent className="submit-button" onClick={sendLoginRequest}>로그인</ClickButton>
+                <ClickButton accent className="submit-button" onClick={sendLoginRequestHandler}>로그인</ClickButton>
+                <Link href="/sign-up">
+                    아직 가입하지 않으셨나요?
+                </Link>
             </div>
         </WidthRestrictor>
     )

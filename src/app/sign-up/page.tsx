@@ -7,6 +7,8 @@ import AlphabetTitle from "@/components/distinct/AlphabetTitle";
 import Textbox from "@/components/interface/Textbox";
 import ClickButton from "@/components/interface/ClickButton";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { sendEmailVerificationRequest, sendSignInRequest, sendSignUpRequest } from "@/services/AuthService";
 
  // Multitab navigation
 
@@ -27,56 +29,31 @@ function ExternalUserSignUp() {
 
     const router = useRouter();
 
-    const sendEmailVerificationRequest = async () => {
+    const sendEmailVerificationRequestHandler = async () => {
         if (!emailRef.current) return;
 
-        fetch(process.env["NEXT_PUBLIC_API_URL"] + "auth/email/request-verification", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "accept": "application/json",
-            },
-            body: JSON.stringify({
-                email: emailRef.current.value,
-            }),
-        }).then(async (response) => {
-            // TODO - get status codes from the server then handle them
+        sendEmailVerificationRequest({
+            email: emailRef.current.value,
         });
     };
 
-    const sendSignUpRequest = async () => {
+    const sendSignUpRequestHandler = async () => {
         if (!uniqueIdRef.current || !emailRef.current || !emailCodeRef.current || !passwordRef.current) return;
 
-        fetch(process.env["NEXT_PUBLIC_API_URL"] + "auth/sign-up", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "accept": "application/json",
-            },
-            body: JSON.stringify({
-                unique_id: uniqueIdRef.current.value,
-                email: emailRef.current.value,
-                email_verification_key: emailCodeRef.current.value,
-                password: passwordRef.current.value,
-            }),
+        sendSignUpRequest({
+            unique_id: uniqueIdRef.current.value,
+            email: emailRef.current.value,
+            email_verification_key: emailCodeRef.current.value,
+            password: passwordRef.current.value,
         }).then(async (response) => {
             if (response.status === 200) {
                 if (!uniqueIdRef.current || !passwordRef.current) return;
 
-                fetch(process.env["NEXT_PUBLIC_API_URL"] + "auth/sign-in", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "accept": "application/json",
-                    },
-                    body: JSON.stringify({
-                        unique_id: uniqueIdRef.current.value,
-                        password: passwordRef.current.value,
-                    }),
+                sendSignInRequest({
+                    unique_id: uniqueIdRef.current.value,
+                    password: passwordRef.current.value,
                 }).then(async (response) => {
                     if (response.status === 200) {
-                        const token = await response.text();
-                        localStorage.setItem("auth-token", token);
                         router.push("/");
                     }
                 });
@@ -97,13 +74,13 @@ function ExternalUserSignUp() {
             <div className="email-code-field">
                 <span>이메일 인증번호</span>
                 <Textbox ref={emailCodeRef} placeholder="Code"/>
-                <ClickButton alternate onClick={sendEmailVerificationRequest}>인증번호 받기</ClickButton>
+                <ClickButton alternate onClick={sendEmailVerificationRequestHandler}>인증번호 받기</ClickButton>
             </div>
             <div className="password-field">
                 <span>비밀번호</span>
                 <Textbox ref={passwordRef} type="password" placeholder="Password"/>
             </div>
-            <ClickButton accent className="submit-button" onClick={sendSignUpRequest}>가입하기</ClickButton>
+            <ClickButton accent className="submit-button" onClick={sendSignUpRequestHandler}>가입하기</ClickButton>
         </div>
     );
 }
@@ -126,6 +103,9 @@ export default function SignUpPage() {
                 {
                     currentIndex === 0 ? <ClubUserSignUp /> : <ExternalUserSignUp />
                 }
+                <Link href="/log-in">
+                    이미 가입하셨나요?
+                </Link>
             </div>
         </WidthRestrictor>
     );
