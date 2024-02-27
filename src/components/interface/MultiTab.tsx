@@ -17,18 +17,19 @@ export const MultiTabItemColorSubs = {
     "negative": "var(--negative-sub)",
     "alternate": "var(--alternate-sub)"
 }
-export type MultiTabItemColorTypes = keyof typeof MultiTabItemColors;
+export type MultiTabItemColor = keyof typeof MultiTabItemColors;
+export type MultiTabItemProps = {
+    colorType?: MultiTabItemColor,
+} & React.ButtonHTMLAttributes<HTMLButtonElement> & Partial<Record<MultiTabItemColor, boolean>>;
 
 export function MultiTabItem({
     children,
     className,
     style,
-    styleType = "accent",
+    colorType = "accent",
     onClick,
     ...props
-}: {
-    styleType?: MultiTabItemColorTypes,
-} & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+}: MultiTabItemProps) {
     let ref = useRef<HTMLButtonElement>(null);
 
     return (
@@ -38,8 +39,8 @@ export function MultiTabItem({
         ])} style={MultiStyles([
             style,
             {
-                "--multi-tab-item-color": MultiTabItemColors[styleType],
-                "--multi-tab-item-color-sub": MultiTabItemColorSubs[styleType]
+                "--multi-tab-item-color": MultiTabItemColors[colorType],
+                "--multi-tab-item-color-sub": MultiTabItemColorSubs[colorType]
             } as React.CSSProperties
         ])} onClick={ (e) => {
             ref.current?.blur();
@@ -51,16 +52,18 @@ export function MultiTabItem({
 
 }
 
+export type MultiTabProps = {
+    onStateChange?: any,
+    items: React.ReactNode,
+} & React.HTMLAttributes<HTMLDivElement>
+
 export default function MultiTab({
     children,
     items,
     className,
     onStateChange,
     ...props
-}: {
-    onStateChange?: any,
-    items: React.ReactNode,
-} & React.HTMLAttributes<HTMLDivElement>) {
+}: MultiTabProps) {
     let childrenArray = React.Children.toArray(items);
     let [currentIndex, setCurrentIndex] = React.useState(0);
 
