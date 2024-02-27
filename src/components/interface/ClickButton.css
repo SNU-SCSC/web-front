@@ -5,71 +5,30 @@
     height: 30px;
     font-size: 18px;
 
-    border-radius: 5px;
+    border-radius: 10px;
+    padding: 5px 10px;
+    height: max-content;
+
+    --click-button-color: var(--normal);
+    --click-button-color-sub: var(--normal-sub);
 
     transition: background 0.1s;
 
+    color: rgb(var(--click-button-color));
+
+    &:focus {
+        box-shadow: 0 0 0 2px rgb(var(--click-button-color-sub)) inset;
+    }
+
     &:hover {
         background: rgb(var(--button-bg-hover));
-        border: 2px solid rgb(var(--text-normal));
+        box-shadow: 0 0 0 2px rgb(var(--click-button-color)) inset;
         
         &:active {
             transition: none;
-            color: rgb(var(--text-normal-sub));
-            border-color: rgb(var(--text-normal-sub));
+            color: rgb(var(--click-button-color-sub));
+            box-shadow: 0 0 0 2px rgb(var(--click-button-color-sub)) inset;
             background: rgb(var(--button-bg-sub));
-        }
-    }
-
-    &.accent {
-        color: rgb(var(--text-accent));
-
-        &:hover {
-            border-color: rgb(var(--text-accent));
-            
-            &:active {
-                color: rgb(var(--text-accent-sub));
-                border-color: rgb(var(--text-accent-sub));
-            }
-        }
-    }
-
-    &.positive {
-        color: rgb(var(--text-positive));
-
-        &:hover {
-            border-color: rgb(var(--text-positive));
-
-            &:active {
-                color: rgb(var(--text-positive-sub));
-                border-color: rgb(var(--text-positive-sub));
-            }
-        }
-    }
-
-    &.negative {
-        color: rgb(var(--text-negative));
-
-        &:hover {
-            border-color: rgb(var(--text-negative));
-
-            &:active {
-                color: rgb(var(--text-negative-sub));
-                border-color: rgb(var(--text-negative-sub));
-            }
-        }
-    }
-
-    &.alternate {
-        color: rgb(var(--text-alternate));
-
-        &:hover {
-            border-color: rgb(var(--text-alternate));
-            
-            &:active {
-                color: rgb(var(--text-alternate-sub));
-                border-color: rgb(var(--text-alternate-sub));
-            }
         }
     }
 }
