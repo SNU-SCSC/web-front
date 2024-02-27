@@ -1,50 +1,69 @@
 .multi-tab {
     display: flex;
-    justify-content: row;
-    align-items: center;
+    flex-direction: column;
+}
+
+.multi-tab-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     gap: 0;
 }
 
 .multi-tab-item {
     padding: 10px;
     cursor: pointer;
+    flex: 1;
 
     font-size: 18px;
-    background: rgb(var(--multitab-bg));
+    background: rgb(var(--multi-tab-bg));
 
     transition: 0.1s;
 
-    &:not(.active) {
-        color: rgb(var(--text-normal));
+    --multi-tab-item-color: rgb(var(--accent));
+    --multi-tab-item-color-sub: rgb(var(--accent-sub));
+
+    color: rgb(var(--text-normal));
+
+    &:focus {
+        box-shadow: 0 0 0 2px rgb(var(--multi-tab-item-color-sub)) inset;
+        color: rgb(var(--multi-tab-item-color-sub));
     }
 
     &.active {
-        color: rgb(var(--accent));
+        color: rgb(var(--multi-tab-item-color));
     }
 
     &:hover {
-        background: rgb(var(--multitab-bg-hover));
-        box-shadow: 0 0 0 2px rgb(var(--accent)) inset;
+        background: rgb(var(--multi-tab-bg-hover));
+        box-shadow: 0 0 0 2px rgb(var(--multi-tab-item-color)) inset;
+        color: rgb(var(--multi-tab-item-color));
     
         &:active {
-            background: rgb(var(--multitab-bg-sub));
-            box-shadow: 0 0 0 2px rgb(var(--accent-sub)) inset;
+            background: rgb(var(--multi-tab-bg-sub));
+            box-shadow: 0 0 0 2px rgb(var(--multi-tab-item-color-sub)) inset;
 
             &:not(.active) {
                 color: rgb(var(--text-normal-sub));
             }
 
             &.active {
-                color: rgb(var(--accent-sub));
+                color: rgb(var(--multi-tab-item-color-sub));
             }
         }
     }
 
-    &.first {
-        border-top-left-radius: 5px;
+    &:first-child {
+        border-top-left-radius: 10px;
     }
 
-    &.last {
-        border-top-right-radius: 5px;
+    &:last-child {
+        border-top-right-radius: 10px;
     }
+}
+
+.multi-tab-content {
+    padding: 20px;
+    background: rgb(var(--multi-tab-content-bg));
+    border-radius: 0 0 10px 10px;
 }
