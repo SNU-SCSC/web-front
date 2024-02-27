@@ -1,0 +1,28 @@
+.text-input {
+    width: 300px;
+    height: 30px;
+
+    font-size: 18px;
+    background: rgb(var(--text-input-bg-sub));
+    color: rgb(var(--text));
+    box-shadow: 0 -2px 0 0 rgb(var(--normal-sub)) inset;
+    border-radius: 10px 10px 0 0;
+    padding: 5px 10px;
+    transition: 0.1s;
+
+    --text-input-color: var(--accent);
+    --text-input-color-sub: var(--accent-sub);
+
+    &::placeholder {
+        color: rgb(var(--text-sub));
+    }
+
+    &:hover {
+        box-shadow: 0 -2px 0 0 rgb(var(--text-input-color)) inset;
+    }
+
+    &:focus {
+        background: rgb(var(--textbox-bg-sub));
+        box-shadow: 0 -4px 0 0 rgb(var(--text-input-color-sub)) inset;
+    }
+}
